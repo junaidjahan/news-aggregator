@@ -1,15 +1,16 @@
 import App from "@/App";
-import { createBrowserRouter } from "react-router-dom";
+import { Outlet, createBrowserRouter } from "react-router-dom";
+import News from "@/pages/news/News"
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
-      // {
-      //   path: "contact",
-      //   element: <Contact />,
-      // },
+      {
+        path: "news",
+        element:  <News />,
+      },
     ],
   },
 ]);
