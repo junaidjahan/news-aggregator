@@ -16,7 +16,6 @@ function App() {
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
-          Main page
         <Outlet />
       </Box>
      </Box>
