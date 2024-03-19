@@ -6,18 +6,18 @@ interface NewsCardProps {
     tags:Array<string>,
 }
 
-export const  NewsCard = (props: NewsCardProps) => {
+export const  NewsCard = (props: Partial<NewsCardProps>) => {
 
     const tags = ['Category','Source']
 
   return (
         <>
-           <div className="border p-3 rounded-xl" >
+           <div className="border p-3 rounded-xl" data-testid="news-card">
                 <div className="grid grid-cols-12 gap-x-4">
                     <img className="h-full w-full object-cover rounded-xl col-span-3" src="https://images.pexels.com/photos/20189629/pexels-photo-20189629/free-photo-of-a-vase-of-yellow-tulips-sits-on-a-table.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load" />
                     <div className="col-span-9">
                         <h2 className="font-semibold text-2xl">
-                            This is best news
+                            This is best news hehl
                         </h2>
                         <div className="flex gap-x-2 mt-1">
                             {
