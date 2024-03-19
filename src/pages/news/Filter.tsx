@@ -19,7 +19,7 @@ interface FilterProps {
 
 const Filter = ({ sources, categories, onHandleSearch }: FilterProps) => {
   const [filter, setfilter] = useState({
-    category: "selectCategory",
+    category: "",
     sources: [""],
     date: '',
   });
@@ -60,7 +60,7 @@ const Filter = ({ sources, categories, onHandleSearch }: FilterProps) => {
               })
             }
           >
-            <BaseSelectOption disabled value={"selectCategory"}>
+            <BaseSelectOption disabled value={""}>
               Select category
             </BaseSelectOption>
             {categories?.map((category) => {
