@@ -6,14 +6,26 @@ export const useNews = () => {
   const { getAll, getSources } = useNewsApi();
 
   const [sources, setSources] = useState();
+  const [news, setNews] = useState();
 
-  const getNewsData = async () => {
-    await getAll();
+  const getNewsData = async (query: any) => {
+    try {
+      setNews([] as any)
+      const data = await getAll(query);
+      setNews((prevNews) => {
+        if (prevNews) {
+          return [...prevNews, ...data as any];
+        }
+        return data as any;
+      });
+    } catch (error) {
+      console.error("Error", error);
+    }
   };
 
-  const getAllSources = async (params:any) => {
+  const getAllSources = async (params: any) => {
     try {
-      const data = await getSources(params);
+      const data = await getSources();
       setSources((prevSources) => {
         if (prevSources) {
           return [...prevSources, ...data.sources];
@@ -26,6 +38,7 @@ export const useNews = () => {
   };
 
   return {
+    news,
     sources,
     getNewsData,
     getAllSources,

@@ -7,20 +7,18 @@ import { categories } from "@/data"
 
 const News = () => {
 
-  const { sources, getNewsData, getAllSources } = useNews()
+  const { sources, news, getNewsData, getAllSources } = useNews()
 
   useEffect(()=>{
-     getNewsData();
+     getNewsData({});
      getAllSources({})
   },[])
 
   useEffect(()=>{
   },[sources])
 
-  const handleSearch = (data:any) =>{
-    console.log("data", data);
-    
-    getAllSources(data)
+  const handleSearch = (data:any) =>{    
+    getNewsData(data)
     
   }
 
@@ -36,10 +34,16 @@ const News = () => {
           </div>
         </div>
         <div className="mt-3 bg-white rounded-3xl p-5 px-9">
-          <NewsCard />
-          <div  className="mt-3" >
-          <NewsCard/>
-          </div>
+          {
+            news?.map(news=>{
+              return(
+                <div className="mt-3"  key={news.title} >
+                  <NewsCard news={news} key={news.title} />
+                </div>
+              )
+            })
+          }
+       
         </div>
         </Container>
       </div>
