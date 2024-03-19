@@ -60,7 +60,9 @@ const CustomButton = React.forwardRef(function CustomButton<
   const { ownerState, ...other } = props;
   return (
     <StyledButton type="button" {...other} ref={ref}>
-      {other.children}
+      <p className='whitespace-nowrap text-ellipsis overflow-hidden !max-w-[190px]'>
+        {other.children}
+      </p>
       <UnfoldMoreRoundedIcon />
     </StyledButton>
   );
@@ -72,10 +74,12 @@ const StyledButton = styled('button', { shouldForwardProp: () => true })(
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: 0.875rem;
   box-sizing: border-box;
-  min-width: 280px;
+  min-width: 250px;
   padding: 8px 12px;
   border-radius: 12px;
   height:48px;
+  overflow:hidden;
+  flex-wrap:nowrap;
   text-align: left;
   line-height: 1.5;
   background: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
@@ -115,6 +119,8 @@ const Listbox = styled('ul')(
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: 0.875rem;
   box-sizing: border-box;
+  max-height:300px;
+  overflow:auto;
   padding: 6px;
   margin: 12px 0;
   min-width: 280px;

@@ -3,11 +3,31 @@ import {
   BaseSelectOption,
   BaseTextfield,
   BaseDatePicker,
+  BaseButton,
 } from "@/components/ui";
-import { IconButton, MenuItem } from "@mui/material";
+import { SourceModel } from "@/services/use-news-api/typings/source.types";
+import { CategoryModel } from "@/typings/source.type";
+import { IconButton, SelectChangeEvent } from "@mui/material";
 import { IconSearch } from "@tabler/icons-react";
+import { MouseEventHandler, useState } from "react";
 
-const Filter = () => {
+interface FilterProps {
+  sources: Array<SourceModel>;
+  categories: Array<CategoryModel>;
+  onHandleSearch: Function
+}
+
+const Filter = ({ sources, categories, onHandleSearch }: FilterProps) => {
+  const [filter, setfilter] = useState({
+    category: "",
+    sources: [""],
+    date: '',
+  });
+
+  const handleSearch = () => {
+    return onHandleSearch(filter)
+  }
+
   return (
     <>
       <div>
@@ -27,16 +47,69 @@ const Filter = () => {
             </IconButton>
           </div>
         </div>
-        <div className="mt-3 flex justify-between">
-          <BaseSelect defaultValue={0} className="mt-3">
-            <BaseSelectOption value={0}>Select category</BaseSelectOption>
-            <BaseSelectOption value={10}>Ten</BaseSelectOption>
+        <div className="mt-3 flex justify-between gap-x-2">
+          <BaseSelect
+            value={filter.category}
+            className="mt-3"
+            onChange={(event, newValue) =>
+              setfilter((prevVal: any) => {
+                return {
+                  ...prevVal,
+                  category: newValue,
+                };
+              })
+            }
+          >
+            <BaseSelectOption disabled value={""}>
+              Select category
+            </BaseSelectOption>
+            {categories?.map((category) => {
+              return (
+                <BaseSelectOption key={category.value} value={category.value}>
+                  {category.title}
+                </BaseSelectOption>
+              );
+            })}
           </BaseSelect>
-          <BaseSelect defaultValue={0} className="mt-3">
-            <BaseSelectOption value={0}>Select source</BaseSelectOption>
-            <BaseSelectOption value={10}>Ten</BaseSelectOption>
+          <BaseSelect
+            multiple
+            className="mt-3"
+            value={filter.sources}
+            onChange={(_, newValue) =>
+              setfilter((prevVal:any) => {
+                console.log("New val", newValue);
+                
+                return {
+                  ...prevVal,
+                  sources: newValue.filter(val=>!!val),
+                };
+              })
+            }
+          >
+            <BaseSelectOption value={""} disabled>
+              Select source
+            </BaseSelectOption>
+            {sources?.map((source) => {
+              return (
+                <BaseSelectOption key={source.id} value={source.id}>
+                  {source.name}
+                </BaseSelectOption>
+              );
+            })}
           </BaseSelect>
-          <BaseDatePicker />
+          <BaseDatePicker
+          
+            onChange={(newValue:any) =>{
+              setfilter((prevVal) => {
+                return {
+                  ...prevVal,
+                  date: newValue!.format(),
+                };
+              })
+            }
+            }
+          />
+          <BaseButton className="mt-3" onClick={handleSearch}>Search</BaseButton>
         </div>
       </div>
     </>
