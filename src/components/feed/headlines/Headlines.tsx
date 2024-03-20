@@ -1,13 +1,11 @@
-import { useGuardiansApi } from '@/services';
 import { useNyTimesApi } from '@/services/use-ny-times-api/useNyTimesApi';
 import { useEffect, useState } from 'react';
 import { HeadlineNewsCard, NewsCard } from '../../shared';
-import { GuardianNewsType, NYTimesType, NewsModel } from '@/typings';
+import { NYTimesType } from '@/typings';
 import { useHelper } from '@/hooks';
 
 export const Headlines = () => {
     const { getAll } = useNyTimesApi();
-    const { getAllNewsGuardians } = useGuardiansApi();
     const { textEllipsis } = useHelper();
 
     const [news, setNews] = useState<Awaited<Array<NYTimesType>>>([]);

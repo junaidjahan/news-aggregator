@@ -1,5 +1,5 @@
 import { useNewsApi } from '@/services';
-import { NewsAIType, NewsModel, SourceModel } from '@/typings';
+import { NewsAIType, SourceModel } from '@/typings';
 import { useState } from 'react';
 
 export const useNews = () => {
