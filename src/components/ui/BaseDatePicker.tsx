@@ -54,7 +54,7 @@ export const BaseDatePicker = (props:DatePickerProps<unknown>) => {
               focused: true,
               color: "success",
               className:
-                "[&_.MuiInputBase-root]:after:!border-none !max-h-[47px] [&_input]:rounded-xl [&_.MuiInputBase-root]:!bg-transparent [&_button]:px-5 [&_input]:min-w-[190px] [&_button]:right-[15px] [&_button]:top-[2px] [&_.MuiInputBase-root]:pr-0 [&_input]:!pt-[13px]  [&_input]:bg-white [&_input]:!text-sm bg-white  [&_.MuiInputBase-root]:after:!border-transparent [&_.MuiFilledInput-underline]:before:border-none [&_.MuiInputBase-root]:before:!border-none", 
+                "[&_.MuiInputBase-root]:after:!border-none w-full !max-h-[47px] min-h-[47px] [&_input]:rounded-xl [&_.MuiInputBase-root]:!bg-transparent [&_button]:px-5 [&_input]:min-w-[180px] [&_button]:right-[15px] [&_button]:top-[2px] [&_.MuiInputBase-root]:pr-0 [&_input]:!pt-[13px]  [&_input]:bg-white [&_input]:!text-sm bg-white  [&_.MuiInputBase-root]:after:!border-transparent [&_.MuiFilledInput-underline]:before:border-none [&_.MuiInputBase-root]:before:!border-none", 
             },
           }}
         />
