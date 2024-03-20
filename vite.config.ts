@@ -5,20 +5,20 @@ import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
-  plugins: [react(), tsconfigPaths()],
-  server: {
-    watch: {
-      usePolling: true,
+    plugins: [react(), tsconfigPaths()],
+    server: {
+        watch: {
+            usePolling: true
+        },
+        host: true
     },
-    host: true,
-  },
-  esbuild: {
-    logOverride: { 'this-is-undefined-in-esm': 'silent' }
-  },
-  envPrefix: 'REACT_',
-  test: {
-    globals: true,
-    environment: 'jsdom',
-    setupFiles: 'src/__tests__/vitest/index.ts'
-  }
+    preview: {
+        port: 5173
+    },
+    envPrefix: 'REACT_',
+    test: {
+        globals: true,
+        environment: 'jsdom',
+        setupFiles: 'src/__tests__/vitest/index.ts'
+    }
 });
