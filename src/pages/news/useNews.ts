@@ -1,11 +1,9 @@
-import { useAxios } from "@/hooks";
 import { useNewsApi } from "@/services";
 import { useState } from "react";
 
 export const useNews = () => {
-  const { getAll, getSources } = useNewsApi();
+  const { getAll } = useNewsApi();
 
-  const [sources, setSources] = useState();
   const [news, setNews] = useState();
 
   const getNewsData = async (query: any) => {
@@ -18,20 +16,7 @@ export const useNews = () => {
         }
         return data as any;
       });
-    } catch (error) {
-      console.error("Error", error);
-    }
-  };
 
-  const getAllSources = async (params: any) => {
-    try {
-      const data = await getSources();
-      setSources((prevSources) => {
-        if (prevSources) {
-          return [...prevSources, ...data.sources];
-        }
-        return data.sources;
-      });
     } catch (error) {
       console.error("Error", error);
     }
@@ -39,8 +24,6 @@ export const useNews = () => {
 
   return {
     news,
-    sources,
     getNewsData,
-    getAllSources,
   };
 };
