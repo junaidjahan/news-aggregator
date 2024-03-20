@@ -1,35 +1,60 @@
 import { BaseTag } from '@/components/ui';
+import { useHelper } from '@/hooks';
 import { NewsModel } from '@/typings';
 
-interface NewsCardProps {
-    news: NewsModel;
-}
-
-export const NewsCard = ({ news }: NewsCardProps) => {
-    const { title, description, publishedAt, urlToImage, source } = news;
-
+export const NewsCard = ({
+    title,
+    source,
+    description,
+    publishedAt,
+    urlToImage,
+    url,
+    size = 'xs',
+    showImage = true,
+    tagSize = 'xs'
+}: NewsModel) => {
     return (
         <>
             <div className="border p-3 rounded-xl" data-testid="news-card">
-                <div className="grid grid-cols-12 gap-x-4">
-                    <img
-                        className="h-full min-h-40 w-full object-cover rounded-xl col-span-3"
-                        src={urlToImage}
-                    />
+                <div
+                    className={`${
+                        size == 'md' ? 'md:grid' : ''
+                    } grid-cols-12 gap-x-4`}
+                >
+                    {showImage ? (
+                        <img
+                            className="md:min-h-40 max-h-40 h-full w-full object-cover rounded-xl col-span-3"
+                            src={urlToImage}
+                        />
+                    ) : (
+                        ''
+                    )}
                     <div className="col-span-9">
-                        <h2 className="font-semibold text-2xl">{title}</h2>
+                        <h2
+                            className={`font-semibold ${
+                                size == 'md' ? 'text-2xl' : 'text-xl mt-2'
+                            }`}
+                        >
+                            {title}
+                        </h2>
                         <div className="flex justify-between gap-x-2 mt-1">
                             <div>
-                                <BaseTag
-                                    title={source?.name || ''}
-                                    color="secondary"
-                                />
+                                {source ? (
+                                    <BaseTag
+                                        title={source || ''}
+                                        color="secondary"
+                                        size={tagSize}
+                                    />
+                                ): '' }
                             </div>
                             <div>
-                                <BaseTag
-                                    title={publishedAt?.slice(0, 10) || ''}
-                                    color="gray"
-                                />
+                                {publishedAt ? (
+                                    <BaseTag
+                                        title={publishedAt?.slice(0, 10) || ''}
+                                        color="gray"
+                                        size={tagSize}
+                                    />
+                                ) : ''}
                             </div>
                         </div>
                         <div>
