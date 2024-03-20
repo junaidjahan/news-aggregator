@@ -1,32 +1,32 @@
-import { CategoryModel } from "@/typings/source.type";
+import { CategoryModel } from '@/typings/source.type';
 
-export const categories:Array<CategoryModel> = [
+export const categories: Array<CategoryModel> = [
     {
-        title:'Business',
-        value:'business'
+        title: 'Business',
+        value: 'business'
     },
     {
-        title:'Entertainment',
-        value:'entertainment'
+        title: 'Entertainment',
+        value: 'entertainment'
     },
     {
-        title:'general',
-        value:'General'
+        title: 'general',
+        value: 'General'
     },
     {
-        title:'Health',
-        value:'health'
+        title: 'Health',
+        value: 'health'
     },
     {
-        title:'Science',
-        value:'science'
+        title: 'Science',
+        value: 'science'
     },
     {
-        title:'Sports',
-        value:'sports'
+        title: 'Sports',
+        value: 'sports'
     },
     {
-        title:'Technology',
-        value:'technology'
-    },
-]
+        title: 'Technology',
+        value: 'technology'
+    }
+];

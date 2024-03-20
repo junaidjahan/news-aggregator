@@ -6,10 +6,9 @@ export type SourceModel = {
     description?: string;
     language?: string;
     url?: string;
-}
-  
+};
+
 export type CategoryModel = {
     title: string;
     value: string;
-}
-  
+};
