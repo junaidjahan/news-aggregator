@@ -5,9 +5,12 @@ import {
     BaseDatePicker,
     BaseButton
 } from '@/components/ui';
+import { useHelper } from '@/hooks';
+import { useDebounce } from '@/hooks/use-debounce';
 import { SourceModel } from '@/services/use-news-api/typings/source.types';
+import { NewsParams } from '@/typings';
 import { CategoryModel } from '@/typings/source.type';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 interface FilterProps {
     sources: Array<SourceModel>;
@@ -20,15 +23,30 @@ export const Filter = ({
     categories,
     onHandleSearch
 }: FilterProps) => {
-    const [filter, setfilter] = useState({
+
+  
+
+    const [filter, setfilter] = useState<NewsParams>({
         category: '',
         sources: [''],
-        date: ''
+        date: '',
+        q:''
     });
 
     const handleSearch = () => {
         return onHandleSearch(filter);
     };
+    const debounce  = useDebounce(handleSearch, 500)
+    const handleInputSearch = (event:ChangeEvent<HTMLInputElement>) => {
+        setfilter(prev=>{
+            return {
+                ...prev,
+                q: event.target.value
+            }
+        })
+
+        debounce()
+    }
 
     return (
         <>
@@ -37,13 +55,14 @@ export const Filter = ({
                     <BaseTextfield
                         placeholder="Search..."
                         className="!bg-white w-full rounded-xl outline-none h-12 pl-4"
+                        onInput={handleInputSearch}
                     />
                 </div>
                 <div className="mt-3 md:grid grid-cols-12 justify-between gap-x-2">
                     <div className="col-span-4 w-full">
                         <BaseSelect
                             value={filter.category}
-                            className="mt-3 w-full"
+                            className="md:mt-3 w-full"
                             onChange={(event, newValue) =>
                                 setfilter((prevVal: any) => {
                                     return {
@@ -72,11 +91,9 @@ export const Filter = ({
                         <BaseSelect
                             multiple
                             className="mt-3 w-full"
-                            value={filter.sources}
+                            value={filter.sources as any}
                             onChange={(_, newValue) =>
                                 setfilter((prevVal: any) => {
-                                    console.log('New val', newValue);
-
                                     return {
                                         ...prevVal,
                                         sources: newValue.filter(val => !!val)
@@ -111,9 +128,12 @@ export const Filter = ({
                             }}
                         />
                     </div>
+                    <div className='text-end col-span-12'>
+
                     <BaseButton className="mt-3" onClick={handleSearch}>
                         Search
                     </BaseButton>
+                    </div>
                 </div>
             </div>
         </>

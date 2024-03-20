@@ -1,12 +1,12 @@
 import { useNewsApi } from '@/services';
-import { NewsModel, SourceModel } from '@/typings';
+import { NewsAIType, NewsModel, SourceModel } from '@/typings';
 import { useState } from 'react';
 
 export const useNews = () => {
     const { getAll, getSources } = useNewsApi();
 
     const [sources, setSources] = useState<Array<SourceModel>>([]);
-    const [news, setNews] = useState<Array<NewsModel>>([]);
+    const [news, setNews] = useState<Array<NewsAIType>>([]);
 
     const getNewsData = async (query: any) => {
         try {
