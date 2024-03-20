@@ -1,4 +1,4 @@
-import { NewsModel } from '@/typings';
+import { NewsAIType, NewsModel } from '@/typings';
 
 export type SourceModel = {
     id: string;
@@ -11,7 +11,7 @@ export type SourceModel = {
 };
 
 export type NewsResponseModel = {
-    articles: Array<NewsModel>;
+    articles: Array<NewsAIType>;
     status: string;
     totalResults: number;
 };

@@ -14,7 +14,7 @@ export const useNewsApi = () => {
         let serializedQuery = '';
         let data = null;
 
-        if (query.sources) {
+        if (sources?.length) {
             serializedQuery = serializeQuery({ sources, q, apiKey }) ?? '';
             const unfilteredData: NewsResponseModel =
                 await get<NewsResponseModel>(
@@ -25,7 +25,7 @@ export const useNewsApi = () => {
                     ? article?.publishedAt?.slice(0, 10) == date?.slice(0, 10)
                     : article
             );
-
+            console.log('Seria', serializedQuery, sources.length);
             return data;
         }
 
@@ -34,18 +34,19 @@ export const useNewsApi = () => {
         const unfilteredData: NewsResponseModel = await get<NewsResponseModel>(
             `/top-headlines?${serializedQuery}`
         );
+        
         data = unfilteredData?.articles?.filter(article => {
-            if (sources && date) {
+            if (sources?.length && date) {
                 return (
                     sources?.includes(article?.source?.id) &&
                     article?.publishedAt.slice(0, 10) == date?.slice(0, 10)
                 );
-            } else if (sources) {
+            } else if (sources?.length) {
                 return sources?.includes(article?.source?.id);
             } else if (date) {
                 return article?.publishedAt.slice(0, 10) == date?.slice(0, 10);
             } else {
-                return article;
+                return true;
             }
         });
 

@@ -1,4 +1,5 @@
 import { useAxios } from '@/hooks';
+import { NYTimesType } from '@/typings';
 
 export const useNyTimesApi = () => {
     const apiUrl = import.meta.env.REACT_APP_NEW_YORK_TIMES_API_URL;
@@ -8,7 +9,7 @@ export const useNyTimesApi = () => {
 
     const getAll = async () => {
         const data = await get<{
-            response: { docs: Array<{ headline: { main: string } }> };
+            response: { docs: Array<NYTimesType> };
         }>(`?api-key=${apiKey}&sort=newest&glocations:("GERMANY")`);
 
         return data.response.docs;
