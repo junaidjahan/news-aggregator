@@ -1,4 +1,4 @@
-import { NewsAIType, NewsModel } from '@/typings';
+import { NewsAIType } from '@/typings';
 
 export type SourceModel = {
     id: string;
