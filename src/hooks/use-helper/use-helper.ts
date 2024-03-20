@@ -1,3 +1,5 @@
+import { useRef } from "react";
+
 export const useHelper = () => {
   const serializeQuery = (filter: any) => {
       const queryArray = Object.entries(filter).map(([key, value]) => {
@@ -16,7 +18,14 @@ export const useHelper = () => {
       return query;
   };
 
+  const textEllipsis = (text:string, length:number) => {
+    if (text.length > length) {
+      return `${text.slice(0, length)}...`;
+    }
+  };
+
   return {
-      serializeQuery
+      serializeQuery,
+      textEllipsis,
   };
 };
