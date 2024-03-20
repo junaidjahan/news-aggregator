@@ -14,7 +14,7 @@ import { IconNews, IconSearch, IconSettings } from '@tabler/icons-react';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-const drawerWidth = 240;
+const drawerWidth = 210;
 
 export const NavigationDrawer = () => {
     const [mobileOpen, setMobileOpen] = useState(false);
@@ -81,7 +81,7 @@ export const NavigationDrawer = () => {
                                     item.path === location.pathname
                                         ? '!text-teal-600'
                                         : '!text-gray-900'
-                                }`}
+                                } !min-w-10`}
                             >
                                 {item.icon}
                             </ListItemIcon>
