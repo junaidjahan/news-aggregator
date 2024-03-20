@@ -14,6 +14,10 @@ export default {
                 secondary: colors.cyan,
                 success: colors.green,
                 danger: colors.red
+            },
+            spacing: {
+                102: '32rem',
+                98: '28rem',
             }
         }
     },
