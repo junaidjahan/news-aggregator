@@ -57,6 +57,7 @@ const CustomButton = React.forwardRef(function CustomButton<
   props: SelectRootSlotProps<TValue, Multiple>,
   ref: React.ForwardedRef<HTMLButtonElement>,
 ) {
+  
   const { ownerState, ...other } = props;
   return (
     <StyledButton type="button" {...other} ref={ref}>
@@ -74,7 +75,6 @@ const StyledButton = styled('button', { shouldForwardProp: () => true })(
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: 0.875rem;
   box-sizing: border-box;
-  min-width: 250px;
   padding: 8px 12px;
   border-radius: 12px;
   height:48px;
@@ -135,6 +135,8 @@ const Listbox = styled('ul')(
   };
   `,
 );
+
+
 
 export const BaseSelectOption = styled(BaseOption)(
   ({ theme }) => `
