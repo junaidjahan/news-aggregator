@@ -129,8 +129,10 @@ const Listbox = styled('ul')(
   padding: 6px;
   margin: 12px 0;
   min-width: 280px;
+  max-width: 280px;
   border-radius: 12px;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   outline: 0px;
   background: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
   border: 1px solid ${theme.palette.mode === 'dark' ? grey[700] : grey[200]};

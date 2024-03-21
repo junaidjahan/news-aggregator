@@ -6,10 +6,10 @@ export const Feed = () => {
     return (
         <div>
             <div className="md:grid grid-cols-12 bg-white rounded-xl p-3 gap-x-3">
-                <div className="col-span-8">
+                <div className="col-span-9">
                     <Headlines />
                 </div>
-                <div className="col-span-4">
+                <div className="col-span-3 md:max-h-[942px] overflow-auto">
                     <Trending />
                 </div>
             </div>

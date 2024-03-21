@@ -1,90 +1,123 @@
-import { BaseSelect, BaseSelectOption } from "@/components/ui";
-import { categories } from "@/data";
-import { sources } from "@/stores/news-resources/news-resources";
-import { useState } from "react";
-import { useRecoilValue } from "recoil";
+import { BaseSelect, BaseSelectOption } from '@/components/ui';
+import { categories } from '@/data';
+import { useSettings } from './useSettings';
+import { useNews } from '../news/hooks/useNews';
+import { useEffect } from 'react';
+import { authors } from '@/stores/news-resources/news-resources';
+import { useRecoilValue } from 'recoil';
 
 export const Settings = () => {
-  const [filter, setfilter] = useState({
-    category: "",
-    sources: [""],
-    date: "",
-  });
+    const {
+        userAuthors,
+        userCategories,
+        userSources,
+        addSettings,
+        getSettings
+    } = useSettings();
+    const { sources, getAllSources, getNewsData } = useNews();
+    const allAuthors = useRecoilValue(authors);
 
-  const allSources: Array<any> = (useRecoilValue(sources) as Array<any>) ?? [];
+    useEffect(() => {
+        (async () => {
+            await getNewsData({});
+            await getAllSources();
+            getSettings();
+        })();
+    }, []);
 
-  // const handleSearch = () => {
-  //   return onHandleSearch(filter)
-  // }
-
-  return (
-    <>
-      <div className="grid grid-cols-12">
-        <div className="md:col-span-4 md:col-start-5 col-span-12 px-8 bg-white border pb-6 pt-0.5 rounded-xl">
-          <div className="mt-3 flex-col">
-            <div>
-              <BaseSelect
-                value={filter.category}
-                className="mt-3 w-full"
-                onChange={(event, newValue) =>
-                  setfilter((prevVal: any) => {
-                    return {
-                      ...prevVal,
-                      category: newValue,
-                    };
-                  })
-                }
-              >
-                <BaseSelectOption disabled value={""}>
-                  Select category
-                </BaseSelectOption>
-                {categories?.map((category) => {
-                  return (
-                    <BaseSelectOption
-                      key={category.value}
-                      value={category.value}
-                    >
-                      {category.title}
-                    </BaseSelectOption>
-                  );
-                })}
-              </BaseSelect>
+    return (
+        <>
+            <div className="grid grid-cols-12">
+                <div className="md:col-span-4 md:col-start-5 col-span-12 px-8 bg-white border pb-6 pt-0.5 rounded-xl">
+                    <div className="mt-3 flex-col">
+                        <div>
+                            <p className="text-sm font-medium text-gray-800">
+                                Select authors
+                            </p>
+                            <BaseSelect
+                                multiple
+                                value={userCategories}
+                                className="mt-3 w-full"
+                                onChange={(event, newValue) =>
+                                    addSettings({
+                                        categories:
+                                            newValue?.filter(val => !!val) ?? []
+                                    })
+                                }
+                            >
+                                {categories?.map(category => {
+                                    return (
+                                        <BaseSelectOption
+                                            key={category.value}
+                                            value={category.value}
+                                        >
+                                            {category.title}
+                                        </BaseSelectOption>
+                                    );
+                                })}
+                            </BaseSelect>
+                        </div>
+                        <div className="mt-3">
+                            <p className="text-sm font-medium text-gray-800">
+                                Select authors
+                            </p>
+                            <BaseSelect
+                                multiple
+                                className="w-full"
+                                value={userSources}
+                                onChange={(_, newValue) => {
+                                    addSettings({
+                                        sources:
+                                            newValue?.filter(val => !!val) ?? []
+                                    });
+                                }}
+                            >
+                                {sources.length
+                                    ? sources?.map(source => {
+                                          return (
+                                              <BaseSelectOption
+                                                  key={source.id}
+                                                  value={source.name}
+                                              >
+                                                  {source.name}
+                                              </BaseSelectOption>
+                                          );
+                                      })
+                                    : 'No data'}
+                            </BaseSelect>
+                        </div>
+                        <div className="mt-3">
+                            <p className="text-sm font-medium text-gray-800">
+                                Select authors
+                            </p>
+                            <BaseSelect
+                                multiple
+                                className="w-full"
+                                value={userAuthors}
+                                onChange={(_, newValue) => {
+                                    addSettings({
+                                        authors:
+                                            newValue ?? []
+                                    });
+                                }}
+                            >
+                                {allAuthors?.length
+                                    ? allAuthors?.map((author, index) => {
+                                          return (
+                                              <BaseSelectOption
+                                                  key={author + index}
+                                                  value={author}
+                                              >
+                                                  {author}
+                                              </BaseSelectOption>
+                                          );
+                                      })
+                                    : 'No data'}
+                            </BaseSelect>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div>
-              <BaseSelect
-                multiple
-                className="mt-3 w-full"
-                value={filter.sources}
-                onChange={(_, newValue) =>
-                  setfilter((prevVal: any) => {
-                    console.log("New val", newValue);
-
-                    return {
-                      ...prevVal,
-                      sources: newValue.filter((val) => !!val),
-                    };
-                  })
-                }
-              >
-                <BaseSelectOption value={""} disabled>
-                  Select source
-                </BaseSelectOption>
-                {allSources.length
-                  ? allSources?.map((source) => {
-                      return (
-                        <BaseSelectOption key={source.id} value={source.id}>
-                          {source.name}
-                        </BaseSelectOption>
-                      );
-                    })
-                  : "No data"}
-              </BaseSelect>
-            </div>
-            <div className="w-full"></div>
-            {/* <BaseButton className="mt-3" onClick={handleSearch}>Search</BaseButton> */}
-          </div>
-        </div>
-      </div>
-    </>
-  );
+        </>
+    );
 };

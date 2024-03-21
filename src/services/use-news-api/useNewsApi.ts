@@ -1,5 +1,8 @@
 import { useAxios, useHelper, useLoader } from '@/hooks';
 import { NewsResponseModel, SourceModel } from './typings/source.types';
+import { NewsAIType } from '@/typings';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { authors } from '@/stores/news-resources/news-resources';
 
 export const useNewsApi = () => {
     const { serializeQuery } = useHelper();
@@ -9,6 +12,7 @@ export const useNewsApi = () => {
 
     const { get } = useAxios(apiUrl);
     const { showLoader, hideLoader } = useLoader();
+     const setAuthors = useSetRecoilState(authors);
 
     const getAll = async (query: any) => {
         const { category, sources, q, date } = query;
@@ -29,6 +33,8 @@ export const useNewsApi = () => {
                           date?.slice(0, 10)
                         : article
                 );
+
+                setAuthorsState(data)
                 return data;
             }
 
@@ -55,7 +61,7 @@ export const useNewsApi = () => {
                     return true;
                 }
             });
-
+            setAuthorsState(data)
             return data;
         } catch (error) {
             console.log('Error', error);
@@ -69,6 +75,17 @@ export const useNewsApi = () => {
             `/top-headlines/sources?apiKey=${apiKey}`
         );
     };
+
+    const setAuthorsState = (allNews:Array<NewsAIType>) => {
+        const getNewsWithAuthors = allNews?.filter((news)=>{
+            return news.author 
+        })
+
+        const getAuthors = getNewsWithAuthors?.map(news=>{
+            return news.author!
+        })
+        setAuthors(() => ([...getAuthors]))
+    }
 
     return {
         getAll,
