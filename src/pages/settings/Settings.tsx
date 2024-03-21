@@ -32,7 +32,7 @@ export const Settings = () => {
                     <div className="mt-3 flex-col">
                         <div>
                             <p className="text-sm font-medium text-gray-800">
-                                Select authors
+                                Select categories
                             </p>
                             <BaseSelect
                                 multiple
@@ -59,7 +59,7 @@ export const Settings = () => {
                         </div>
                         <div className="mt-3">
                             <p className="text-sm font-medium text-gray-800">
-                                Select authors
+                                Select sources
                             </p>
                             <BaseSelect
                                 multiple
