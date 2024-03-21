@@ -1,5 +1,5 @@
 import { useNewsApi } from '@/services';
-import { NewsAIType, SourceModel } from '@/typings';
+import { NewsAIType, NewsParams, SourceModel } from '@/typings';
 import { useState } from 'react';
 
 export const useNews = () => {
@@ -8,16 +8,16 @@ export const useNews = () => {
     const [sources, setSources] = useState<Array<SourceModel>>([]);
     const [news, setNews] = useState<Array<NewsAIType>>([]);
 
-    const getNewsData = async (query: any) => {
+    const getNewsData = async (query: NewsParams) => {
         try {
-            setNews([] as any);
+            setNews([]);
             const data = await getAll(query);
-            if(data?.length){
+            if (data?.length) {
                 setNews(prevNews => {
                     if (prevNews) {
-                        return [...prevNews, ...(data as any)];
+                        return [...prevNews, ...data];
                     }
-                    return data as any;
+                    return data;
                 });
             }
         } catch (error) {

@@ -4,21 +4,21 @@ import { Container } from '@mui/material';
 import { useEffect } from 'react';
 import { Filter } from './components/Filter';
 import { useNews } from './hooks/useNews';
+import { NewsParams } from '@/typings';
 
 export const News = () => {
     const { sources, news, getNewsData, getAllSources } = useNews();
 
     useEffect(() => {
         (async () => {
-            await getNewsData({});
+            await getNewsData({} as NewsParams);
             await getAllSources();
         })();
-      
     }, []);
 
     useEffect(() => {}, [sources]);
 
-    const handleSearch = async (data: any) => {
+    const handleSearch = async (data: NewsParams) => {
         await getNewsData(data);
     };
 
@@ -42,18 +42,23 @@ export const News = () => {
                         </div>
                     </div>
                     <div className="mt-3 bg-white rounded-3xl p-5 px-7">
-                        {news.length ? news?.map(news => {
-                            return (
-                                <div className="mt-3" key={news.title}>
-                                    <NewsCard
-                                        {...news}
-                                        source={news?.source?.id}
-                                        size="md"
-                                        key={news.title}
-                                    />
-                                </div>
-                            );
-                        }) : 'No data!'}
+                        {news.length
+                            ? news?.map((news, index) => {
+                                  return (
+                                      <div
+                                          className="mt-3"
+                                          key={news.title + index}
+                                      >
+                                          <NewsCard
+                                              {...news}
+                                              source={news?.source?.id}
+                                              size="md"
+                                              key={news.title}
+                                          />
+                                      </div>
+                                  );
+                              })
+                            : 'No data!'}
                     </div>
                 </Container>
             </div>

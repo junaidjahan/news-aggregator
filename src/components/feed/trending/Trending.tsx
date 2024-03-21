@@ -30,7 +30,7 @@ export const Trending = () => {
                     (article: GuardianNewsType, index: number) => {
                         if (index == 0 || index > 9) return;
                         return (
-                            <div className="col-span-3 mb-3 [&_h2]:!mt-0 [&_h2]:!mb-1.5">
+                            <div key={article.webUrl} className="col-span-3 mb-3 [&_h2]:!mt-0 [&_h2]:!mb-1.5">
                                 <NewsCard
                                     title={
                                         (article?.webTitle?.length > 40

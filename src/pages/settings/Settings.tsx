@@ -5,6 +5,7 @@ import { useNews } from '../news/hooks/useNews';
 import { useEffect } from 'react';
 import { authors } from '@/stores/news-resources/news-resources';
 import { useRecoilValue } from 'recoil';
+import { NewsParams } from '@/typings';
 
 export const Settings = () => {
     const {
@@ -19,7 +20,7 @@ export const Settings = () => {
 
     useEffect(() => {
         (async () => {
-            await getNewsData({});
+            await getNewsData({} as NewsParams);
             await getAllSources();
             getSettings();
         })();
@@ -49,7 +50,7 @@ export const Settings = () => {
                                     return (
                                         <BaseSelectOption
                                             key={category.value}
-                                            value={category.value}
+                                            value={category.title}
                                         >
                                             {category.title}
                                         </BaseSelectOption>
