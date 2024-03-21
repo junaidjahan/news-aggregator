@@ -12,14 +12,14 @@ export const useNyTimesApi = () => {
     const filter:UserTags = useRecoilValue(preferences);
 
     const getAll = async (): Promise<Array<NYTimesType>> => {
-        const sources = filter.sources
-        const sectionsQuery = `fq=source:(${sources?.join()})`
+        const categories = filter.categories
+        const sectionsQuery = `fq=news_desk:(${categories?.map(cat=>`"${cat}"`)})`
         
         try {
             showLoader();
             const data = await get<{
                 response: { docs: Array<NYTimesType> };
-            }>(`?api-key=${apiKey}&${sources ? sectionsQuery : ''}`);
+            }>(`?api-key=${apiKey}&${categories?.length ? sectionsQuery : ''}`);
 
             return data.response.docs;
         } catch (error) {

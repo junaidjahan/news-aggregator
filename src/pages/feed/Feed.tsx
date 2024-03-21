@@ -1,8 +1,14 @@
 import { Trending } from '@/components/feed';
 import { Headlines } from '@/components/feed/headlines';
 import { Latest } from '@/components/feed/latest';
+import { BaseTag } from '@/components/ui';
+import { preferences } from '@/stores/preferences/preferences';
+import { UserTags } from '@/typings';
+import { useRecoilValue } from 'recoil';
 
 export const Feed = () => {
+    const filter:UserTags = useRecoilValue(preferences);
+
     return (
         <div>
             <div className="md:grid grid-cols-12 bg-white rounded-xl p-3 gap-x-3">
@@ -19,6 +25,19 @@ export const Feed = () => {
                         Latest
                     </span>
                 </p>
+                {
+                filter?.sources ?
+                <div className='mt-1 mb-2 flex gap-x-2'>
+                    {
+                        filter?.sources?.map((src,index)=>{
+                            if(index >= 8 ) return  
+                            return <BaseTag title={src} color='gray' key={src+index} />
+                        })
+
+                    }
+                </div>
+                : ''
+            }
                 <Latest />
             </div>
         </div>

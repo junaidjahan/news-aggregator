@@ -58,7 +58,9 @@ export const NavigationDrawer = () => {
 
     const drawer = (
         <div>
-            <Toolbar />
+            <Toolbar>
+                <p className='text-lg font-semibold text-gray-800'>News Hub</p>
+            </Toolbar>
             <Divider />
             <List>
                 {list.map(item => (

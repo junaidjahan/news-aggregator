@@ -5,7 +5,6 @@ import {
     BaseDatePicker,
     BaseButton
 } from '@/components/ui';
-import { useHelper } from '@/hooks';
 import { useDebounce } from '@/hooks/use-debounce';
 import { SourceModel } from '@/services/use-news-api/typings/source.types';
 import { NewsParams } from '@/typings';
@@ -61,10 +60,10 @@ export const Filter = ({
                 <div className="mt-3 md:grid grid-cols-12 justify-between gap-x-2">
                     <div className="col-span-4 w-full">
                         <BaseSelect
-                            value={filter.category}
+                            value={filter?.category}
                             className="md:mt-3 w-full"
                             onChange={(event, newValue) =>
-                                setfilter((prevVal: any) => {
+                                setfilter((prevVal:any) => {
                                     return {
                                         ...prevVal,
                                         category: newValue
@@ -91,7 +90,7 @@ export const Filter = ({
                         <BaseSelect
                             multiple
                             className="mt-3 w-full"
-                            value={filter.sources as any}
+                            value={filter?.sources as any}
                             onChange={(_, newValue) =>
                                 setfilter((prevVal: any) => {
                                     return {

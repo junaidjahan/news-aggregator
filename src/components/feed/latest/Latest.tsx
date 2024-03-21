@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { NewsCard } from '../../shared';
 import { useNews } from '@/pages/news/hooks/useNews';
+import { NewsParams } from '@/typings';
 
 
 export const Latest = () => {
@@ -8,16 +9,16 @@ export const Latest = () => {
 
     useEffect(() => {
         (async () => {
-            await getNewsData({});
+            await getNewsData({} as NewsParams);
         })();
     }, []);
 
     return (
         <div>
             <div >
-                {news?.map(news => {
+                {news?.map((news,index) => {
                     return (
-                        <div className="mt-3" key={news.title}>
+                        <div className="mt-3" key={news.title+index}>
                             <NewsCard
                                 {...news}
                                 source={news?.source?.id}
