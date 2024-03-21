@@ -16,17 +16,25 @@
     ```bash
     yarn dev
     ```
-5. Run production build
+5. If you face `'createTheme_default' is not a function`
+    ```bash
+    # remove node_modules/.vite/deps folder
+    rm -rf node_modules/.vite/deps
+    # restart the server
+    yarn dev
+    ```
+    This is a known issue in Vite [Stack overflow](https://stackoverflow.com/a/75500582/12061795)
+6. Run production build
     ```bash
     yarn build
     yarn preview
     ```
-6. Application served at http://localhost:5173
-7. Run unit tests
+7. Application served at http://localhost:5173
+8. Run unit tests
     ```bash
     yarn test
     ```
-8. Run e2e tests
+9. Run e2e tests
     ```bash
     yarn dev
     # Application must be served before running e2e tests
