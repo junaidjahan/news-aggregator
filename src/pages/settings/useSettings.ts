@@ -1,5 +1,7 @@
+import { preferences } from '@/stores/preferences/preferences';
 import { UserTags } from '@/typings';
 import { useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 
 
 export const useSettings = () => {
@@ -7,12 +9,14 @@ export const useSettings = () => {
     const [userSources, setUserSources] = useState<Array<string>>([]);
     const [userAuthors, setUserAuthors] = useState<Array<string>>([]);
 
+    const setSettings = useSetRecoilState(preferences);
+
     const addSettings = ({ categories, sources, authors }: UserTags) => {
         authors &&
             setUserAuthors(prev =>  [...prev, ...authors]);
         sources &&
             setUserSources(() => {
-                return [...sources!];
+                return [...sources];
             });
         categories &&
             setUserCategories(() => {
@@ -26,6 +30,7 @@ export const useSettings = () => {
         };
 
         localStorage.setItem('userTags', JSON.stringify(userTags));
+        setSettings(userTags)
     };
 
     const getSettings = () => {
@@ -34,15 +39,15 @@ export const useSettings = () => {
         );
         settings?.authors &&
             setUserAuthors(() => {
-                return [...settings?.authors!];
+                return [...settings?.authors ?? []];
             });
         settings?.sources &&
             setUserSources(() => {
-                return [...settings?.sources!];
+                return [...settings?.sources ?? []];
             });
         settings?.categories &&
             setUserCategories(() => {
-                return [...settings?.categories!];
+                return [...settings?.categories ?? []];
             });
     };
 

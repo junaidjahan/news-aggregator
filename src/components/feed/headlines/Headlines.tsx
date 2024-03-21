@@ -1,20 +1,22 @@
 import { useNyTimesApi } from '@/services/use-ny-times-api/useNyTimesApi';
 import { useEffect, useState } from 'react';
 import { HeadlineNewsCard, NewsCard } from '../../shared';
-import { NYTimesType } from '@/typings';
+import { NYTimesType, UserTags } from '@/typings';
 import { useHelper } from '@/hooks';
+import { BaseTag } from '@/components/ui';
+import { useRecoilValue } from 'recoil';
+import { preferences } from '@/stores/preferences/preferences';
 
 export const Headlines = () => {
     const { getAll } = useNyTimesApi();
     const { textEllipsis } = useHelper();
 
     const [news, setNews] = useState<Awaited<Array<NYTimesType>>>([]);
-  
+    const filter: UserTags = useRecoilValue(preferences);
 
     useEffect(() => {
         (async () => {
             setNews(await getAll());
-
         })();
     }, []);
 
@@ -25,6 +27,22 @@ export const Headlines = () => {
                     Headlines
                 </span>
             </p>
+            {filter?.categories ? (
+                <div className="mt-1 mb-2 flex gap-x-2">
+                    {filter?.categories?.map((cat, index) => {
+                        if (index >= 8) return;
+                        return (
+                            <BaseTag
+                                title={cat}
+                                color="gray"
+                                key={cat + index}
+                            />
+                        );
+                    })}
+                </div>
+            ) : (
+                ''
+            )}
             <div>
                 <div>
                     <HeadlineNewsCard
@@ -44,7 +62,10 @@ export const Headlines = () => {
                 {news.map((article, index) => {
                     if (index == 0 || index > 3) return;
                     return (
-                        <div className="col-span-4 [&_h2]:max-w-72 [&_h2]:text-ellipsis [&_h2]:whitespace-nowrap [&_h2]:overflow-hidden min-h-80 [&_h2]:mb-2">
+                        <div
+                            key={article.web_url}
+                            className="col-span-4 [&_h2]:max-w-72 [&_h2]:text-ellipsis [&_h2]:whitespace-nowrap [&_h2]:overflow-hidden min-h-80 [&_h2]:mb-2"
+                        >
                             <NewsCard
                                 title={
                                     (article?.headline?.main?.length > 30
