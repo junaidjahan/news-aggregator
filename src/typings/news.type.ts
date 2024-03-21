@@ -41,6 +41,7 @@ export type NYTimesType = {
     source: string;
     news_desk: string;
     multimedia: Array<{url:string}>;
+    web_url: string
 };
 
 export type NewsAIType = {
@@ -52,5 +53,11 @@ export type NewsAIType = {
     title: string;
     url?: string;
     urlToImage?: string;
+};
+
+export type UserTags = {
+    categories?: Array<string>;
+    sources?: Array<string>;
+    authors?: Array<string>;
 };
 

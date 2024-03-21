@@ -1,5 +1,3 @@
-import { useRef } from "react";
-
 export const useHelper = () => {
   const serializeQuery = (filter: any) => {
       const queryArray = Object.entries(filter).map(([key, value]) => {
@@ -24,8 +22,13 @@ export const useHelper = () => {
     }
   };
 
+  const openUrl = (url:string) => {
+      window.open(url, '_blank')
+  }
+
   return {
       serializeQuery,
       textEllipsis,
+      openUrl
   };
 };

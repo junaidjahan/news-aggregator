@@ -14,7 +14,7 @@ import { IconNews, IconSearch, IconSettings } from '@tabler/icons-react';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-const drawerWidth = 210;
+const drawerWidth = 240;
 
 export const NavigationDrawer = () => {
     const [mobileOpen, setMobileOpen] = useState(false);
