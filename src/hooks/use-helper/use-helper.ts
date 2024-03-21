@@ -1,5 +1,3 @@
-import { useRef } from "react";
-
 export const useHelper = () => {
   const serializeQuery = (filter: any) => {
       const queryArray = Object.entries(filter).map(([key, value]) => {
