@@ -12,12 +12,14 @@ export const useNews = () => {
         try {
             setNews([] as any);
             const data = await getAll(query);
-            setNews(prevNews => {
-                if (prevNews) {
-                    return [...prevNews, ...(data as any)];
-                }
-                return data as any;
-            });
+            if(data?.length){
+                setNews(prevNews => {
+                    if (prevNews) {
+                        return [...prevNews, ...(data as any)];
+                    }
+                    return data as any;
+                });
+            }
         } catch (error) {
             console.error('Error', error);
         }
