@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { NewsCard } from '../../shared';
 import { useNews } from '@/pages/news/hooks/useNews';
+import { NewsParams } from '@/typings';
 
 
 export const Latest = () => {
