@@ -36,6 +36,7 @@ export const Headlines = () => {
                         source={news[0]?.source}
                         subCategory={news[0]?.news_desk}
                         urlToImage={`https://www.nytimes.com/${news[0]?.multimedia[0]?.url}`}
+                        url={news[0]?.web_url}
                     />
                 </div>
             </div>
@@ -43,7 +44,7 @@ export const Headlines = () => {
                 {news.map((article, index) => {
                     if (index == 0 || index > 3) return;
                     return (
-                        <div className="col-span-4">
+                        <div className="col-span-4 [&_h2]:max-w-72 [&_h2]:text-ellipsis [&_h2]:whitespace-nowrap [&_h2]:overflow-hidden min-h-80 [&_h2]:mb-2">
                             <NewsCard
                                 title={
                                     (article?.headline?.main?.length > 30
@@ -62,6 +63,7 @@ export const Headlines = () => {
                                 source={article?.source}
                                 urlToImage={`https://www.nytimes.com/${article?.multimedia[0]?.url}`}
                                 size="xs"
+                                url={article?.web_url}
                             />
                         </div>
                     );

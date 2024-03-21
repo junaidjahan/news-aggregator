@@ -1,4 +1,6 @@
 import { BaseTag } from '@/components/ui';
+import { useHelper } from '@/hooks';
+import { IconExternalLink } from '@tabler/icons-react';
 
 type HeadlineNewsCardProps = {
     author: string;
@@ -20,8 +22,11 @@ export const HeadlineNewsCard = ({
     source,
     category,
     author,
-    subCategory
+    subCategory,
+    url
 }: HeadlineNewsCardProps) => {
+    const { openUrl } = useHelper();
+
     return (
         <>
             <div
@@ -29,10 +34,15 @@ export const HeadlineNewsCard = ({
                 data-testid="news-card"
             >
                 <div className="md:grid grid-cols-12 gap-x-4">
-                    <img
-                        className=" order-1 md:h-102 h-40 w-full object-cover rounded-xl col-span-7"
-                        src={urlToImage}
-                    />
+                    <div className="relative md:min-h-102 h-40 col-span-7 order-1 overflow-hidden rounded-xl">
+                        <img
+                            className="w-full object-cover md:min-h-102  rounded-xl hover:scale-110 hover:transition hover:ease-in-out hover:duration-300"
+                            src={urlToImage}
+                        />
+                        <div className="absolute bottom-3 right-4 rounded-full cursor-pointer">
+                            <IconExternalLink color="white" size={40} onClick={()=>openUrl(url!)} />
+                        </div>
+                    </div>
                     <div className="col-span-5">
                         <h2 className="font-semibold text-2xl mt-3 md:mt-0 md:text-5xl">
                             {title}
@@ -56,7 +66,7 @@ export const HeadlineNewsCard = ({
                                     </p>
                                 </div>
                             </div>
-                            <div className='[&_h1]:text-[0.6rem] mt-2 md:mt-0'>
+                            <div className="[&_h1]:text-[0.6rem] mt-2 md:mt-0">
                                 <BaseTag
                                     size="xs"
                                     title={publishedAt?.slice(0, 10) || ''}

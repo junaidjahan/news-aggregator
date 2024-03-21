@@ -1,12 +1,13 @@
 import { Box } from '@mui/material';
 import { Outlet } from 'react-router-dom';
-import { NavigationDrawer } from './components/shared';
+import { Loader, NavigationDrawer } from './components/shared';
 import { drawerWidth } from './global';
 import { RecoilRoot } from 'recoil';
 
 export const App = () => {
     return (
         <RecoilRoot>
+            <Loader/>
             <Box className="flex">
                 <NavigationDrawer />
                 <Box

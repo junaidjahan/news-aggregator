@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
 import { NewsCard } from '../../shared';
 import { useNews } from '@/pages/news/hooks/useNews';
-import { NewsParams } from '@/typings';
 
 
-export const Latest = (props:NewsParams) => {
+export const Latest = () => {
     const { news, getNewsData } = useNews();
 
     useEffect(() => {
@@ -12,10 +11,6 @@ export const Latest = (props:NewsParams) => {
             await getNewsData({});
         })();
     }, []);
-
-
-    useEffect(()=>{console.log("Hello");
-    }, [props])
 
     return (
         <div>
@@ -25,7 +20,7 @@ export const Latest = (props:NewsParams) => {
                         <div className="mt-3" key={news.title}>
                             <NewsCard
                                 {...news}
-                                source={news?.source?.['id' as any]}
+                                source={news?.source?.id}
                                 size="md"
                                 key={news.title}
                             />
