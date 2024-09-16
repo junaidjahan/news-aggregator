@@ -1,10 +1,61 @@
-import { useNewsApi } from "@/services";
-import { useState } from "react";
+import { preferences } from '@/stores/preferences/preferences';
+import { UserTags } from '@/typings';
+import { useState } from 'react';
+import { useSetRecoilState } from 'recoil';
+
 
 export const useSettings = () => {
+    const [userCategories, setUserCategories] = useState<Array<string>>([]);
+    const [userSources, setUserSources] = useState<Array<string>>([]);
+    const [userAuthors, setUserAuthors] = useState<Array<string>>([]);
 
+    const setSettings = useSetRecoilState(preferences);
 
+    const addSettings = ({ categories, sources, authors }: UserTags) => {
+        authors &&
+            setUserAuthors(prev =>  [...prev, ...authors]);
+        sources &&
+            setUserSources(() => {
+                return [...sources];
+            });
+        categories &&
+            setUserCategories(() => {
+                return [...categories];
+            });
 
-  return {
-  };
+        const userTags = {
+            categories: categories || userCategories,
+            sources: sources || userSources,
+            authors: authors || userAuthors
+        };
+
+        localStorage.setItem('userTags', JSON.stringify(userTags));
+        setSettings(userTags)
+    };
+
+    const getSettings = () => {
+        const settings: UserTags = JSON.parse(
+            localStorage.getItem('userTags')!
+        );
+        settings?.authors &&
+            setUserAuthors(() => {
+                return [...settings?.authors ?? []];
+            });
+        settings?.sources &&
+            setUserSources(() => {
+                return [...settings?.sources ?? []];
+            });
+        settings?.categories &&
+            setUserCategories(() => {
+                return [...settings?.categories ?? []];
+            });
+    };
+
+    return {
+        userCategories,
+        userAuthors,
+        userSources,
+        addSettings,
+        getSettings
+    };
 };
