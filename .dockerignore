@@ -1,3 +1,4 @@
+# Updated .dockerignore
 .git
 .dockerignore
 .gitignore
